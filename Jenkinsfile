@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        EMAIL_RECIPIENT = 'rashiagrawal299@gmail.com'
+        EMAIL_RECIPIENT = 'rashistudent29@gmail.com'
     }
 
     stages {
@@ -30,8 +30,7 @@ pipeline {
                     emailext (
                         subject: "Test Stage: ${currentBuild.currentResult}",
                         body: "The test stage has completed with status: ${currentBuild.currentResult}",
-                        to: "${EMAIL_RECIPIENT}",
-                        attachmentsPattern: 'test_log.txt'
+                        to: "${EMAIL_RECIPIENT}"
                     )
                 }
             }
