@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        EMAIL_RECIPIENT = 'rashistudent29@gmail.com'
+        EMAIL_RECIPIENT = 'rashiagrawal299@gmail.com'
     }
 
     stages {
@@ -55,7 +55,7 @@ pipeline {
                         subject: "Security Scan Stage: ${currentBuild.currentResult}",
                         body: """The security scan stage has completed with status: ${currentBuild.currentResult}.
                                 \nSee the attached build log and scan output for details.""",
-                        to: "${EMAIL_RECIPIENT}",
+                        to: rashiagrawal299@gmail.com,
                         attachLog: true,
                         attachmentsPattern: 'security_log.txt'
                     )
