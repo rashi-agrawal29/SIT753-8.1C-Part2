@@ -17,7 +17,6 @@ pipeline {
                 script {
                     try {
                         echo 'Running tests...'
-                        // Simulate test
                         sh 'echo "Test logs..." > test_log.txt'
                     } catch (err) {
                         currentBuild.result = 'FAILURE'
@@ -29,8 +28,10 @@ pipeline {
                 always {
                     emailext (
                         subject: "Test Stage: ${currentBuild.currentResult}",
-                        body: "The test stage has completed with status: ${currentBuild.currentResult}",
-                        to: "${EMAIL_RECIPIENT}"
+                        body: """The test stage has completed with status: ${currentBuild.currentResult}.
+                                \nSee the attached build log for details.""",
+                        to: "${EMAIL_RECIPIENT}",
+                        attachLog: true
                     )
                 }
             }
@@ -41,7 +42,6 @@ pipeline {
                 script {
                     try {
                         echo 'Running security scan...'
-                        // Simulate scan
                         sh 'echo "Security scan logs..." > security_log.txt'
                     } catch (err) {
                         currentBuild.result = 'FAILURE'
@@ -52,9 +52,11 @@ pipeline {
             post {
                 always {
                     emailext (
-                        subject: "Security Scan: ${currentBuild.currentResult}",
-                        body: "The security scan stage has completed with status: ${currentBuild.currentResult}",
+                        subject: "Security Scan Stage: ${currentBuild.currentResult}",
+                        body: """The security scan stage has completed with status: ${currentBuild.currentResult}.
+                                \nSee the attached build log and scan output for details.""",
                         to: "${EMAIL_RECIPIENT}",
+                        attachLog: true,
                         attachmentsPattern: 'security_log.txt'
                     )
                 }
